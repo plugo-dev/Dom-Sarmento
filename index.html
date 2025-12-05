@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dom Sarmento Barbearia</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --text:#ffffff; --muted:#e8e8e8;
+  --gold-1:#f9eebe; --gold-2:#e9c97f; --gold-3:#cfa156; --gold-4:#8c652f;
+  --steel-top:#3b3b3b; --steel-mid:#262626; --steel-bot:#141414;
+  --tagline:#e3c676; --ring:rgba(255,255,255,.08);
+  --ciano:#69dfd6; --roxinho:#a78bfa;
+
+  /* cores novas p/ botões pequenos */
+  --turq-1:#aef3ff; --turq-2:#42c1d6; --turq-3:#128ca7;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; color:var(--text);
+  font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  position:relative; overflow-x:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:0;
+  background:url('background-dom-sarmento.jpg') center/cover no-repeat, #0b0b0b; z-index:0;
+}
+body::after{
+  content:""; position:fixed; inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,.40), rgba(0,0,0,.65) 50%, rgba(0,0,0,.85)); z-index:0;
+}
+/* topo mais compacto p/ subir logo/legenda */
+.page{position:relative; z-index:1; max-width:480px; margin:0 auto; padding:12px 16px 40px}
+
+/* ===== Header ===== */
+.header{text-align:center; margin:0 0 6px}
+.logo{
+  width:clamp(240px, 64vw, 340px);
+  display:block; margin:0 auto 4px;
+  filter:drop-shadow(0 12px 22px rgba(0,0,0,.40));
+  mix-blend-mode:multiply;
+}
+.tagline{
+  color:var(--tagline); font-weight:800; letter-spacing:.06em; text-transform:uppercase;
+  font-size:clamp(16px,3.8vw,20px);
+  margin:0 auto 10px;
+}
+
+/* ===== Cards ===== */
+.stack{display:flex; flex-direction:column; gap:10px; margin:10px 0 22px}
+.btn{
+  position:relative; overflow:hidden; display:flex; align-items:center; gap:12px;
+  padding:12px 14px; min-height:72px; border-radius:20px; text-decoration:none; color:var(--text);
+}
+.btn::before{
+  content:""; position:absolute; inset:0; border-radius:22px; padding:2px;
+  background:linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 40%, var(--gold-3) 75%, var(--gold-4) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  box-shadow:0 0 18px rgba(255,215,130,.20), 0 12px 24px rgba(0,0,0,.40);
+  pointer-events:none;
+}
+.btn--gold{
+  background:
+    radial-gradient(160% 220% at 0% -40%, rgba(255,255,255,.70), transparent 45%),
+    linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 45%, var(--gold-3) 70%, var(--gold-4) 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.32), 0 14px 28px rgba(255,214,120,.22);
+}
+.btn--gold::after{
+  content:""; position:absolute; left:10px; right:10px; top:26%;
+  height:16%; border-radius:14px;
+  background:linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0));
+  filter:blur(0.8px); pointer-events:none;
+}
+.btn--dark{
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0) 24%) top/100% 50% no-repeat,
+    linear-gradient(0deg, rgba(255,255,255,.05), rgba(255,255,255,0) 28%) bottom/100% 55% no-repeat,
+    linear-gradient(180deg, var(--steel-top) 0%, var(--steel-mid) 55%, var(--steel-bot) 100%);
+}
+.icon{
+  width:38px; height:38px; object-fit:contain; flex:0 0 38px; display:block;
+  filter: drop-shadow(0 2px 0 rgba(0,0,0,.15)) drop-shadow(0 6px 10px rgba(0,0,0,.35));
+}
+.btn--gold .icon{ filter: drop-shadow(0 2px 0 rgba(0,0,0,.10)) drop-shadow(0 6px 10px rgba(0,0,0,.28)); }
+.title{
+  font-weight:800; text-transform:uppercase; letter-spacing:.01em; line-height:1.12;
+  font-size:clamp(16px,3.8vw,18px);
+}
+.sub{ font-size:clamp(12px,3.2vw,14px); color:var(--muted); margin-top:3px }
+.btn--gold .title{ color:#121212 }
+.btn--gold .sub{ color:#1f1f1f; opacity:.86 }
+
+/* ===== Botões pequenos do modal ===== */
+.btn-row{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:12px 0 }
+.btn-small{
+  border:0; border-radius:12px; padding:10px 12px; font-weight:700; cursor:pointer;
+  color:#0b0b0b; box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 8px 18px rgba(0,0,0,.25);
+}
+/* “Copiar senha” em dourado */
+.btn-pass{
+  color:#191919;
+  background:linear-gradient(180deg, var(--gold-1) 0%, var(--gold-2) 45%, var(--gold-3) 80%);
+}
+/* “Abrir Wi-Fi (Android)” em turquesa */
+.btn-open{
+  color:#082a32;
+  background:linear-gradient(180deg, var(--turq-1) 0%, var(--turq-2) 55%, var(--turq-3) 100%);
+}
+
+/* ===== VÍDEO ===== */
+.section{ margin:16px auto 10px }
+.block{
+  margin:6px 0 16px;
+  padding:16px;
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  border-radius:16px;
+  box-shadow:inset 0 0 0 1px var(--ring), 0 8px 36px rgba(0,0,0,.45);
+}
+.video-shell{ border-radius:14px; overflow:hidden; background:#000; }
+video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
+
+/* ===== Slogan ===== */
+.footer{text-align:center; margin-top:4px}
+.footer .slogan{ color:var(--tagline); font-weight:800; letter-spacing:.06em; text-transform:uppercase }
+
+/* ===== CARROSSEL / GALERIA ===== */
+.gallery-title{
+  margin:0 0 10px; font-weight:800;
+  font-size:clamp(16px,3.8vw,20px); letter-spacing:.02em;
+}
+.carousel{ position:relative }
+.car-viewport{
+  overflow:hidden; border-radius:16px; background:#000;
+  box-shadow:inset 0 0 0 1px var(--ring), 0 8px 36px rgba(0,0,0,.45);
+  aspect-ratio: 9 / 16;                /* mantém formato stories */
+}
+.car-track{ display:flex; transition:transform .45s ease; will-change:transform; height:100% }
+.car-slide{
+  position:relative; overflow:hidden;
+  flex:0 0 100%;
+  display:grid; place-items:center; height:100%; background:#000;
+}
+/* fundo desfocado que preenche as “faixas” */
+.car-slide::before{
+  content:""; position:absolute; inset:0;
+  background:var(--bg) center/cover no-repeat;
+  filter:blur(18px) brightness(.65);
+  transform:scale(1.08);
+  z-index:0;                 /* >>> fica atrás da imagem */
+  pointer-events:none;       /* >>> não bloqueia cliques */
+}
+/* imagem principal sem corte (nítida por cima) */
+.car-slide img{
+  width:100%; height:100%; display:block;
+  object-fit:contain;
+  position:relative;         /* >>> garante empilhamento */
+  z-index:1;                 /* >>> fica à frente do blur */
+}
+.car-arrow{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:32px; height:32px; border-radius:10px; border:1px solid rgba(255,255,255,.4);
+  background:rgba(0,0,0,.35); color:#fff; font-size:18px; line-height:30px; text-align:center;
+  cursor:pointer; user-select:none; backdrop-filter:blur(4px);
+}
+.car-arrow:hover{ background:rgba(0,0,0,.55) }
+.car-arrow:active{ transform:translateY(-50%) scale(.98) }
+.car-arrow.prev{ left:8px } .car-arrow.next{ right:8px }
+
+/* ====== MODAIS ====== */
+.modal{ position:fixed; inset:0; background:rgba(0,0,0,.78); display:none; place-items:center; z-index:50; padding:16px }
+.modal.open{ display:grid }
+.card{
+  width:min(520px, 96vw); background:#111; color:#fff; border-radius:18px; overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.6), inset 0 0 0 1px var(--ring);
+}
+.card header{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 14px; border-bottom:1px solid rgba(255,255,255,.08); background:#0f0f0f;
+}
+.card header h3{ margin:0; font-size:18px }
+.close-btn{ background:#222; border:1px solid rgba(255,255,255,.2); color:#fff; border-radius:10px; padding:8px 10px; cursor:pointer }
+.card .body{ padding:18px }
+.center{text-align:center}
+.note{ color:#cfcfcf; font-size:13px; text-align:center; margin-top:6px }
+
+
+/* Wi-Fi modal */
+.qr-wrap{
+  border-radius:14px; padding:10px; background:#000; width:min(360px,80vw); margin:0 auto 12px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.qr-wrap img{ width:100%; height:auto; display:block }
+
+/* bloco Pix inteiro clicável */
+#pixRow{ cursor:pointer }
+
+/* Extra-compacto */
+@media (max-width: 380px){
+  .btn{ min-height:66px; padding:10px 12px }
+  .icon{ width:34px; height:34px }
+  .title{ font-size:15px }
+  .sub{ font-size:12px }
+}
+</style>
+</head>
+<body>
+  <main class="page">
+    <header class="header">
+      <img class="logo" src="logotipo-dom-sarmento.png" alt="Dom Sarmento">
+      <div class="tagline">TRADIÇÃO E ESTILO EM CADA CORTE</div>
+    </header>
+
+    <section class="stack">
+      <!-- Agendar no mesmo estilo dos demais (escuro) -->
+      <a class="btn btn--dark" href="#" id="btnAgendar">
+        <img class="icon" src="media/media:calendar.png" alt="Calendário">
+        <div>
+          <div class="title">Agendar horário</div>
+          <div class="sub">Reserve seu corte via Appbarber</div>
+        </div>
+      </a>
+
+      <a class="btn btn--dark" href="#" id="btnWifi">
+        <img class="icon" src="media/media:wifi.png" alt="Wi-Fi">
+        <div>
+          <div class="title">Conectar ao Wi-Fi</div>
+          <div class="sub">Internet liberada para clientes</div>
+        </div>
+      </a>
+
+      <a class="btn btn--dark" href="https://g.page/r/CdBvO0UJXkO-EAE/review" target="_blank" rel="noopener">
+        <img class="icon" src="media/media:star.png" alt="Avaliações no Google">
+        <div>
+          <div class="title">Avaliações no Google</div>
+          <div class="sub">Conte como foi sua experiência</div>
+        </div>
+      </a>
+
+      <a class="btn btn--dark" href="https://www.instagram.com/domsarmento" target="_blank" rel="noopener">
+        <img class="icon" src="media/media:instagram.png" alt="Instagram">
+        <div>
+          <div class="title">Instagram oficial</div>
+          <div class="sub">@domsarmento</div>
+        </div>
+      </a>
+
+      <a class="btn btn--dark" href="https://wa.me/5548999535888" target="_blank" rel="noopener">
+        <img class="icon" src="media/media:whatsapp.png" alt="WhatsApp">
+        <div>
+          <div class="title">WhatsApp</div>
+          <div class="sub">Fale direto com recepção</div>
+        </div>
+      </a>
+
+      <!-- PIX: sem botão lateral; card inteiro abre o QR e copia a chave -->
+      <div class="btn btn--dark" id="pixRow" role="button" tabindex="0" aria-label="Pagamento via Pix, copiar chave">
+        <img class="icon" src="media/media:pix.png" alt="Pix">
+        <div style="flex:1">
+          <div class="title">Pagamento via Pix</div>
+          <div class="sub">@domsarmento</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer">
+      <div class="slogan">💈 MAIS QUE CORTES, UMA EXPERIÊNCIA DOM SARMENTO 💈</div>
+    </section>
+
+    <!-- VÍDEO -->
+    <section class="section block">
+      <div class="video-shell">
+        <video id="videoBarbearia"
+               src="media/intro.mp4"
+               autoplay
+               muted
+               loop
+               playsinline
+               controls
+               preload="metadata"
+               controlsList="nodownload noplaybackrate">
+        </video>
+      </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section class="section">
+      <div class="gallery-title">Galeria</div>
+      <div class="carousel" id="galeria">
+        <button class="car-arrow prev" aria-label="Anterior">‹</button>
+        <div class="car-viewport">
+          <div class="car-track">
+            <div class="car-slide"><img src="media/media:galeria1.jpg" alt="Galeria 1"></div>
+            <div class="car-slide"><img src="media/media:galeria2.jpg" alt="Galeria 2"></div>
+            <div class="car-slide"><img src="media/media:galeria3.jpg" alt="Galeria 3"></div>
+            <div class="car-slide"><img src="media/media:galeria4.jpg" alt="Galeria 4"></div>
+          </div>
+        </div>
+        <button class="car-arrow next" aria-label="Próximo">›</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== MODAL WI-FI ===== -->
+  <div class="modal" id="wifiModal" aria-hidden="true">
+    <div class="card" role="dialog" aria-modal="true" aria-labelledby="wifiTitle">
+      <header>
+        <h3 id="wifiTitle">Conectar ao Wi-Fi</h3>
+        <button class="close-btn" id="closeWifi">Fechar ✕</button>
+      </header>
+      <div class="body">
+        <div class="qr-wrap"><img id="wifiQr" alt="QR do Wi-Fi"></div>
+        <div class="center" id="wifiRede">Rede:</div>
+        <div class="btn-row">
+          <!-- Removido: Copiar SSID -->
+          <button class="btn-small btn-pass" id="copyPass">Copiar senha</button>
+          <button class="btn-small btn-open" id="wifiOpenAndroid">Abrir Wi-Fi (Android)</button>
+        </div>
+        <div class="note">Aponte a câmera para o QR para conectar automaticamente. No iPhone, abra Ajustes &gt; Wi-Fi.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL PIX (QR APENAS) ===== -->
+  <div class="modal" id="pixModal" aria-hidden="true">
+    <div class="card" role="dialog" aria-modal="true" aria-labelledby="pixTitle">
+      <header>
+        <h3 id="pixTitle">Pix — aponte a câmera</h3>
+        <button class="close-btn" id="closePix">Fechar ✕</button>
+      </header>
+      <div class="body">
+        <div class="qr-wrap"><img id="pixQr" alt="QR Code do Pix"></div>
+        <div class="center" id="pixKeyText" style="font-size:14px; opacity:.9"></div>
+        <div class="copy-ok" id="pixCopiedMsg" style="display:none; text-align:center; margin-top:8px; color:#9ae6b4; font-weight:800">✅ Chave PIX copiada!</div>
+        <div class="center" style="margin-top:6px">
+          <button class="btn-small btn-open" id="copyPixAgain">Copiar chave novamente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* ========= Configurações ========= */
+const WIFI = {
+  ssid: 'Dom Sarmento_Cliente',
+  pass: 'ds3031082018',
+  type: 'WPA'
+};
+const PIX_KEY = '17888489000182';
+const PIX_NAME = 'DOM SARMENTO';
+const PIX_CITY = 'BRASIL';
+
+/* Utils */
+async function copyToClipboard(text){ try { await navigator.clipboard.writeText(text); } catch(e) {} }
+const isAndroid = /Android/i.test(navigator.userAgent);
+const isIOS     = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+/* ===== Vídeo autoplay ===== */
+(function () {
+  const v = document.getElementById('videoBarbearia');
+  if (!v) return;
+  const tryPlay = () => v.play().catch(()=>{});
+  if (v.autoplay) {
+    if (document.visibilityState === 'visible') tryPlay();
+    document.addEventListener('visibilitychange', tryPlay, {passive:true});
+    window.addEventListener('touchstart', tryPlay, {once:true, passive:true});
+  }
+})();
+
+/* ===== Carrossel ===== */
+(function initCarousel(rootId, intervalMs=4000){
+  const root   = document.getElementById(rootId || 'galeria');
+  if(!root) return;
+  const track  = root.querySelector('.car-track');
+  const slides = Array.from(root.querySelectorAll('.car-slide'));
+  const prev   = root.querySelector('.prev');
+  const next   = root.querySelector('.next');
+  let index = 0, timer, paused = false;
+  function go(i){ index = (i + slides.length) % slides.length; track.style.transform = `translateX(${-index*100}%)`; }
+  function start(){ stop(); timer = setInterval(()=>{ if(!paused) go(index+1); }, intervalMs); }
+  function stop(){ if(timer) clearInterval(timer); }
+  prev.addEventListener('click', ()=>{ go(index-1); start(); });
+  next.addEventListener('click', ()=>{ go(index+1); start(); });
+  root.addEventListener('mouseenter', ()=> paused = true);
+  root.addEventListener('mouseleave', ()=> paused = false);
+  root.addEventListener('touchstart', ()=> paused = true, {passive:true});
+  root.addEventListener('touchend', ()=> paused = false);
+  let sx=0, dx=0;
+  root.addEventListener('touchstart', e=>{ sx = e.touches[0].clientX; }, {passive:true});
+  root.addEventListener('touchmove',  e=>{ dx = e.touches[0].clientX - sx; }, {passive:true});
+  root.addEventListener('touchend',   ()=>{ if(Math.abs(dx) > 40){ dx<0 ? go(index+1) : go(index-1); start(); } sx=dx=0; });
+  document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden') stop(); else start(); });
+  go(0); start();
+})();
+
+/* ===== Blur fill da galeria (usa a própria foto como fundo) ===== */
+(function blurFill(){
+  document.querySelectorAll('.car-slide').forEach(slide=>{
+    const img = slide.querySelector('img');
+    if(img && img.src){
+      slide.style.setProperty('--bg', `url('${img.src}')`);
+    }
+  });
+})();
+
+/* ===== Modal helpers ===== */
+function openModal(el){ el.classList.add('open'); el.setAttribute('aria-hidden','false'); }
+function closeModal(el){ el.classList.remove('open'); el.setAttribute('aria-hidden','true'); }
+
+/* ====== Wi-Fi modal ====== */
+const wifiModal = document.getElementById('wifiModal');
+document.getElementById('btnWifi').addEventListener('click', (e)=>{
+  e.preventDefault();
+  const payload = `WIFI:T:${encodeURIComponent(WIFI.type)};S:${encodeURIComponent(WIFI.ssid)};P:${encodeURIComponent(WIFI.pass)};;`;
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=${encodeURIComponent(payload)}&margin=10`;
+  document.getElementById('wifiQr').src = qrUrl;
+  document.getElementById('wifiRede').textContent = `Rede: ${WIFI.ssid}`;
+  openModal(wifiModal);
+});
+document.getElementById('closeWifi').addEventListener('click', ()=> closeModal(wifiModal));
+wifiModal.addEventListener('click', (e)=>{ if(e.target.id==='wifiModal') closeModal(wifiModal); });
+
+/* Sem “Copiar SSID” */
+document.getElementById('copyPass').addEventListener('click', async ()=>{ await copyToClipboard(WIFI.pass); alert('Senha copiada.'); });
+document.getElementById('wifiOpenAndroid').addEventListener('click', async ()=>{
+  await copyToClipboard(WIFI.pass);
+  const intent = 'intent:#Intent;action=android.settings.WIFI_SETTINGS;end';
+  let warned = false;
+  const tip = setTimeout(()=>{ if(!warned){ warned=true; alert('A senha já foi copiada. Abra o Wi-Fi do aparelho e cole.'); } }, 1200);
+  try { window.location.href = intent; } catch(e){ clearTimeout(tip); alert('A senha já foi copiada. Abra o Wi-Fi do aparelho e cole.'); }
+});
+
+/* ====== PIX (copia e mostra QR apenas) ====== */
+function tlv(id, value){
+  const len = value.length.toString().padStart(2,'0');
+  return id + len + value;
+}
+function crc16(payload){
+  let crc = 0xFFFF;
+  for (let i=0; i<payload.length; i++){
+    crc ^= payload.charCodeAt(i) << 8;
+    for (let j=0; j<8; j++){
+      crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : (crc << 1);
+      crc &= 0xFFFF;
+    }
+  }
+  return crc.toString(16).toUpperCase().padStart(4,'0');
+}
+function buildPixPayload(key, name, city, msg){
+  const gui        = tlv('00','br.gov.bcb.pix');
+  const keyField   = tlv('01', key);
+  const descField  = msg ? tlv('02', msg) : '';
+  const merAccInfo = tlv('26', gui + keyField + descField);
+  const payload =
+    tlv('00','01') +
+    tlv('01','12') +
+    merAccInfo +
+    tlv('52','0000') +
+    tlv('53','986') +
+    tlv('58','BR') +
+    tlv('59', (name || 'MERCHANT').substring(0,25)) +
+    tlv('60', (city || 'BRASIL').substring(0,15)) +
+    tlv('62', tlv('05','***')) +
+    '6304';
+  const crc = crc16(payload);
+  return payload + crc;
+}
+
+const pixModal = document.getElementById('pixModal');
+function openPix(){
+  const payload = buildPixPayload(PIX_KEY, PIX_NAME, PIX_CITY, 'Pagamento DOM SARMENTO');
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=${encodeURIComponent(payload)}&margin=10`;
+  document.getElementById('pixQr').src = qrUrl;
+  document.getElementById('pixKeyText').textContent = `Chave: ${PIX_KEY}`;
+  copyToClipboard(PIX_KEY);           // copia na abertura
+  const msg = document.getElementById('pixCopiedMsg');
+  msg.style.display = 'block';
+  setTimeout(()=> msg.style.display='none', 1500);
+  openModal(pixModal);
+}
+/* Card inteiro abre o Pix */
+document.getElementById('pixRow').addEventListener('click', openPix);
+document.getElementById('pixRow').addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' ') openPix(); });
+
+document.getElementById('copyPixAgain').addEventListener('click', ()=> copyToClipboard(PIX_KEY));
+document.getElementById('closePix').addEventListener('click', ()=> closeModal(pixModal));
+pixModal.addEventListener('click', (e)=>{ if(e.target.id==='pixModal') closeModal(pixModal); });
+
+/* ===== AppBarber – roteamento por plataforma ===== */
+const ANDROID_STORE = 'https://play.google.com/store/apps/details?id=br.com.starapp.appbarbercli';
+const IOS_STORE     = 'https://apps.apple.com/br/app/appbarber-cliente/id6450795073';
+const WEB_FALLBACK  = 'https://sistema.appbarber.com.br/login.php';
+
+document.getElementById('btnAgendar')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (isAndroid) {
+    window.location.href = ANDROID_STORE;
+  } else if (isIOS) {
+    window.location.href = IOS_STORE;
+  } else {
+    window.location.href = WEB_FALLBACK;
+  }
+});
+</script>
+</body>
+</html>
