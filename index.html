@@ -127,7 +127,7 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 .footer{text-align:center; margin-top:4px}
 .footer .slogan{ color:var(--tagline); font-weight:800; letter-spacing:.06em; text-transform:uppercase }
 
-/* ===== CARROSSEL / GALERIA ===== */
+/* ===== CARROSSEL / GALERIA (CSS mantido, mas não usado) ===== */
 .gallery-title{
   margin:0 0 10px; font-weight:800;
   font-size:clamp(16px,3.8vw,20px); letter-spacing:.02em;
@@ -136,7 +136,7 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 .car-viewport{
   overflow:hidden; border-radius:16px; background:#000;
   box-shadow:inset 0 0 0 1px var(--ring), 0 8px 36px rgba(0,0,0,.45);
-  aspect-ratio: 9 / 16;                /* mantém formato stories */
+  aspect-ratio: 9 / 16;
 }
 .car-track{ display:flex; transition:transform .45s ease; will-change:transform; height:100% }
 .car-slide{
@@ -144,21 +144,19 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
   flex:0 0 100%;
   display:grid; place-items:center; height:100%; background:#000;
 }
-/* fundo desfocado que preenche as “faixas” */
 .car-slide::before{
   content:""; position:absolute; inset:0;
   background:var(--bg) center/cover no-repeat;
   filter:blur(18px) brightness(.65);
   transform:scale(1.08);
-  z-index:0;                 /* >>> fica atrás da imagem */
-  pointer-events:none;       /* >>> não bloqueia cliques */
+  z-index:0;
+  pointer-events:none;
 }
-/* imagem principal sem corte (nítida por cima) */
 .car-slide img{
   width:100%; height:100%; display:block;
   object-fit:contain;
-  position:relative;         /* >>> garante empilhamento */
-  z-index:1;                 /* >>> fica à frente do blur */
+  position:relative;
+  z-index:1;
 }
 .car-arrow{
   position:absolute; top:50%; transform:translateY(-50%);
@@ -187,7 +185,6 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 .center{text-align:center}
 .note{ color:#cfcfcf; font-size:13px; text-align:center; margin-top:6px }
 
-
 /* Wi-Fi modal */
 .qr-wrap{
   border-radius:14px; padding:10px; background:#000; width:min(360px,80vw); margin:0 auto 12px;
@@ -198,12 +195,78 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 /* bloco Pix inteiro clicável */
 #pixRow{ cursor:pointer }
 
+/* ===== Barbeiros ===== */
+.barbers-section{
+  margin:16px auto 20px;
+}
+.barbers-title{
+  margin:0 0 10px;
+  font-weight:800;
+  font-size:clamp(16px,3.8vw,20px);
+  letter-spacing:.02em;
+}
+.barbers-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.barber-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 12px;
+  border-radius:16px;
+  background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  box-shadow:inset 0 0 0 1px var(--ring), 0 8px 24px rgba(0,0,0,.45);
+}
+.barber-photo{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  object-fit:cover;
+  flex:0 0 64px;
+  box-shadow:0 6px 16px rgba(0,0,0,.5);
+}
+.barber-btn{
+  margin-left:auto;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  text-decoration:none;
+  font-size:14px;
+  font-weight:700;
+  color:#ffffff;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,0) 24%) top/100% 50% no-repeat,
+    linear-gradient(0deg, rgba(255,255,255,.05), rgba(255,255,255,0) 28%) bottom/100% 55% no-repeat,
+    linear-gradient(180deg, var(--steel-top) 0%, var(--steel-mid) 55%, var(--steel-bot) 100%);
+  box-shadow:0 10px 22px rgba(0,0,0,.55);
+}
+.barber-btn-icon{
+  width:18px;
+  height:18px;
+  object-fit:contain;
+}
+.barber-name{
+  white-space:nowrap;
+}
+
 /* Extra-compacto */
 @media (max-width: 380px){
   .btn{ min-height:66px; padding:10px 12px }
   .icon{ width:34px; height:34px }
   .title{ font-size:15px }
   .sub{ font-size:12px }
+
+  .barber-item{
+    flex-direction:row;
+  }
+  .barber-name{
+    white-space:normal;
+  }
 }
 </style>
 </head>
@@ -286,20 +349,51 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
       </div>
     </section>
 
-    <!-- GALERIA -->
-    <section class="section">
-      <div class="gallery-title">Galeria</div>
-      <div class="carousel" id="galeria">
-        <button class="car-arrow prev" aria-label="Anterior">‹</button>
-        <div class="car-viewport">
-          <div class="car-track">
-            <div class="car-slide"><img src="media/media:galeria1.jpg" alt="Galeria 1"></div>
-            <div class="car-slide"><img src="media/media:galeria2.jpg" alt="Galeria 2"></div>
-            <div class="car-slide"><img src="media/media:galeria3.jpg" alt="Galeria 3"></div>
-            <div class="car-slide"><img src="media/media:galeria4.jpg" alt="Galeria 4"></div>
-          </div>
+    <!-- BARBEIROS -->
+    <section class="section barbers-section">
+      <div class="barbers-title">Escolha seu barbeiro</div>
+      <div class="barbers-list">
+
+        <div class="barber-item">
+          <img src="media/Adelson.jpeg" alt="Adelson Sarmento" class="barber-photo">
+          <a class="barber-btn" href="https://wa.me/5548999535888" target="_blank" rel="noopener">
+            <img src="media/media:whatsapp.png" alt="" class="barber-btn-icon">
+            <span class="barber-name">Adelson Sarmento</span>
+          </a>
         </div>
-        <button class="car-arrow next" aria-label="Próximo">›</button>
+
+        <div class="barber-item">
+          <img src="media/Calebe.jpeg" alt="Calebe Souza" class="barber-photo">
+          <a class="barber-btn" href="https://wa.me/5548996484139" target="_blank" rel="noopener">
+            <img src="media/media:whatsapp.png" alt="" class="barber-btn-icon">
+            <span class="barber-name">Calebe Souza</span>
+          </a>
+        </div>
+
+        <div class="barber-item">
+          <img src="media/Alyson.jpeg" alt="Alyson de Quadros" class="barber-photo">
+          <a class="barber-btn" href="https://wa.me/5548998638765" target="_blank" rel="noopener">
+            <img src="media/media:whatsapp.png" alt="" class="barber-btn-icon">
+            <span class="barber-name">Alyson de Quadros</span>
+          </a>
+        </div>
+
+        <div class="barber-item">
+          <img src="media/Higor.jpeg" alt="Higor Santos" class="barber-photo">
+          <a class="barber-btn" href="https://wa.me/5548996483628" target="_blank" rel="noopener">
+            <img src="media/media:whatsapp.png" alt="" class="barber-btn-icon">
+            <span class="barber-name">Higor Santos</span>
+          </a>
+        </div>
+
+        <div class="barber-item">
+          <img src="media/Bruno.jpeg" alt="Bruno Batista" class="barber-photo">
+          <a class="barber-btn" href="https://wa.me/5548999916948" target="_blank" rel="noopener">
+            <img src="media/media:whatsapp.png" alt="" class="barber-btn-icon">
+            <span class="barber-name">Bruno Batista</span>
+          </a>
+        </div>
+
       </div>
     </section>
   </main>
@@ -315,7 +409,6 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
         <div class="qr-wrap"><img id="wifiQr" alt="QR do Wi-Fi"></div>
         <div class="center" id="wifiRede">Rede:</div>
         <div class="btn-row">
-          <!-- Removido: Copiar SSID -->
           <button class="btn-small btn-pass" id="copyPass">Copiar senha</button>
           <button class="btn-small btn-open" id="wifiOpenAndroid">Abrir Wi-Fi (Android)</button>
         </div>
@@ -370,7 +463,7 @@ const isIOS     = /iPhone|iPad|iPod/i.test(navigator.userAgent);
   }
 })();
 
-/* ===== Carrossel ===== */
+/* ===== Carrossel (não é mais usado, mas mantido caso volte no futuro) ===== */
 (function initCarousel(rootId, intervalMs=4000){
   const root   = document.getElementById(rootId || 'galeria');
   if(!root) return;
@@ -396,7 +489,7 @@ const isIOS     = /iPhone|iPad|iPod/i.test(navigator.userAgent);
   go(0); start();
 })();
 
-/* ===== Blur fill da galeria (usa a própria foto como fundo) ===== */
+/* ===== Blur fill da galeria (também mantido) ===== */
 (function blurFill(){
   document.querySelectorAll('.car-slide').forEach(slide=>{
     const img = slide.querySelector('img');
@@ -423,7 +516,6 @@ document.getElementById('btnWifi').addEventListener('click', (e)=>{
 document.getElementById('closeWifi').addEventListener('click', ()=> closeModal(wifiModal));
 wifiModal.addEventListener('click', (e)=>{ if(e.target.id==='wifiModal') closeModal(wifiModal); });
 
-/* Sem “Copiar SSID” */
 document.getElementById('copyPass').addEventListener('click', async ()=>{ await copyToClipboard(WIFI.pass); alert('Senha copiada.'); });
 document.getElementById('wifiOpenAndroid').addEventListener('click', async ()=>{
   await copyToClipboard(WIFI.pass);
@@ -475,13 +567,12 @@ function openPix(){
   const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=${encodeURIComponent(payload)}&margin=10`;
   document.getElementById('pixQr').src = qrUrl;
   document.getElementById('pixKeyText').textContent = `Chave: ${PIX_KEY}`;
-  copyToClipboard(PIX_KEY);           // copia na abertura
+  copyToClipboard(PIX_KEY);
   const msg = document.getElementById('pixCopiedMsg');
   msg.style.display = 'block';
   setTimeout(()=> msg.style.display='none', 1500);
   openModal(pixModal);
 }
-/* Card inteiro abre o Pix */
 document.getElementById('pixRow').addEventListener('click', openPix);
 document.getElementById('pixRow').addEventListener('keypress', (e)=>{ if(e.key==='Enter' || e.key===' ') openPix(); });
 
