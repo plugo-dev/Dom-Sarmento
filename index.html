@@ -32,8 +32,9 @@ body::after{
   content:""; position:fixed; inset:0;
   background:linear-gradient(180deg, rgba(0,0,0,.40), rgba(0,0,0,.65) 50%, rgba(0,0,0,.85)); z-index:0;
 }
-/* topo mais compacto p/ subir logo/legenda */
-.page{position:relative; z-index:1; max-width:480px; margin:0 auto; padding:12px 16px 40px}
+.page{
+  position:relative; z-index:1; max-width:480px; margin:0 auto; padding:12px 16px 40px
+}
 
 /* ===== Header ===== */
 .header{text-align:center; margin:0 0 6px}
@@ -223,6 +224,7 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
   gap:14px;
 }
 .barber-item{
+  position:relative;
   display:flex;
   align-items:center;
   gap:14px;
@@ -234,9 +236,25 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
     radial-gradient(140% 160% at 0% 0%, rgba(255,255,255,.18), transparent 55%),
     linear-gradient(180deg, rgba(0,0,0,.85), rgba(0,0,0,.95));
   box-shadow:
-    0 0 0 1px var(--ring),
     0 18px 40px rgba(0,0,0,.75);
   backdrop-filter:blur(12px);
+  /* para o border-gradiente não pintar o fundo */
+  border:1px solid transparent;
+  background-clip:padding-box;
+}
+.barber-item::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:1px;
+  background:linear-gradient(135deg, var(--gold-1), var(--gold-3), var(--gold-4));
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
 }
 .barber-photo{
   width:88px;
@@ -251,6 +269,8 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
   display:flex;
   flex-direction:column;
   gap:4px;
+  flex:1;
+  min-width:0;
 }
 .barber-label{
   font-size:11px;
@@ -280,14 +300,18 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
   box-shadow:
     0 10px 24px rgba(0,0,0,.75),
     0 0 0 1px rgba(0,0,0,.6);
+  flex-shrink:0;
+  max-width:52%;
+  text-align:left;
 }
 .barber-btn-icon{
   width:20px;
   height:20px;
   object-fit:contain;
+  flex:0 0 20px;
 }
 .barber-name{
-  white-space:nowrap;
+  white-space:normal;
 }
 
 /* Extra-compacto */
@@ -309,9 +333,7 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
   .barber-btn{
     padding:8px 14px;
     font-size:13px;
-  }
-  .barber-name{
-    white-space:normal;
+    max-width:54%;
   }
 }
 </style>
