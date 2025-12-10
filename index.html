@@ -49,7 +49,7 @@ body::after{
   margin:0 auto 10px;
 }
 
-/* ===== Cards principais (iguais aos barbeiros + borda gradiente) ===== */
+/* ===== Cards principais ===== */
 .stack{
   display:flex;
   flex-direction:column;
@@ -143,14 +143,25 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 .footer-plugo{
   margin-top:16px;
   font-size:12px;
-  color:var(--muted);
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:2px;
 }
+
+/* PRIMEIRA LINHA – © Plugo.ia com dourado degradê */
 .footer-plugo span:first-child{
-  font-weight:700;
+  font-weight:800;
+  background:linear-gradient(135deg, var(--gold-1), var(--gold-3), var(--gold-2));
+  -webkit-background-clip:text;
+          background-clip:text;
+  color:transparent;
+}
+
+/* SEGUNDA LINHA – texto normal */
+.footer-plugo span:last-child{
+  color:var(--muted);
+  font-weight:600;
 }
 
 /* ====== MODAIS ====== */
@@ -236,7 +247,7 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
   font-weight:800;
 }
 
-/* botão dos barbeiros + borda gradiente */
+/* botão dos barbeiros + borda gradiente (MENOR) */
 .barber-btn{
   position:relative;
   overflow:hidden;
@@ -244,11 +255,11 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
   display:inline-flex;
   align-items:center;
   gap:8px;
-  padding:10px 18px;
+  padding:8px 16px;          /* menor que antes */
   border-radius:999px;
   border:none;
   text-decoration:none;
-  font-size:14px;
+  font-size:13px;            /* menor */
   font-weight:800;
   color:#ffffff;
   background:
@@ -274,8 +285,8 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
   pointer-events:none;
 }
 .barber-btn-icon{
-  width:20px;
-  height:20px;
+  width:18px;
+  height:18px;
   object-fit:contain;
 }
 .barber-name{
@@ -299,8 +310,8 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
     flex:0 0 80px;
   }
   .barber-btn{
-    padding:8px 14px;
-    font-size:13px;
+    padding:7px 14px;
+    font-size:12px;
   }
   .barber-name{
     white-space:normal;
@@ -454,31 +465,6 @@ video{ width:100%; height:auto; aspect-ratio:9/16; display:block }
 
       </div>
     </section>
-
-    /* ===== Rodapé Plugo ===== */
-.footer-plugo{
-  margin-top:16px;
-  font-size:12px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:2px;
-}
-
-/* PRIMEIRA LINHA – © Plugo.ia com dourado degradê */
-.footer-plugo span:first-child{
-  font-weight:800;
-  background:linear-gradient(135deg, var(--gold-1), var(--gold-3), var(--gold-2));
-  -webkit-background-clip:text;
-          background-clip:text;
-  color:transparent;
-}
-
-/* SEGUNDA LINHA – texto normal */
-.footer-plugo span:last-child{
-  color:var(--muted);
-  font-weight:600;
-}
 
     <!-- Rodapé Plugo -->
     <footer class="footer footer-plugo">
